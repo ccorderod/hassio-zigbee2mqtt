@@ -20,6 +20,12 @@ if [[ ! -z "$ZIGBEE_SHEPHERD_DEVICES" ]]; then
     else
         echo "[Error] File $DATA_PATH/devices.js not found! Starting with default devices.js"
     fi
+    echo "[Info] Searching for custom fromZigbee.js file in zigbee2mqtt data path..." 
+    if [[ -f "$DATA_PATH"/fromZigbee.js ]]; then
+        cp -f "$DATA_PATH"/fromZigbee.js ./node_modules/zigbee-shepherd-converters/fromZigbee.js
+    else
+        echo "[Error] File $DATA_PATH/devices.js not found! Starting with default devices.js"
+    fi
 fi
 
 ZIGBEE2MQTT_DATA="$DATA_PATH" pm2-runtime start npm -- start
