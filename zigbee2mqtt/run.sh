@@ -10,19 +10,19 @@ ZIGBEE_SHEPHERD_DEVICES=$(jq --raw-output ".zigbee_shepherd_devices // empty" $C
 python3 set_config.py "$CONFIG_PATH" "$DATA_PATH"
 
 if [[ ! -z "$ZIGBEE_SHEPHERD_DEBUG" ]]; then
-    export DEBUG="zigbee-shepherd*" 
+    export DEBUG="zigbee-shepherd*"
 fi
 
 if [[ ! -z "$ZIGBEE_SHEPHERD_DEVICES" ]]; then
-    echo "[Info] Searching for custom devices file in zigbee2mqtt data path..." 
+    echo "[Info] Searching for custom devices file in zigbee2mqtt data path..."
     if [[ -f "$DATA_PATH"/devices.js ]]; then
         cp -f "$DATA_PATH"/devices.js ./node_modules/zigbee-shepherd-converters/devices.js
     else
         echo "[Error] File $DATA_PATH/devices.js not found! Starting with default devices.js"
     fi
-    echo "[Info] Searching for custom fromZigbee.js file in zigbee2mqtt data path..." 
+    echo "[Info] Searching for custom fromZigbee.js file in zigbee2mqtt data path..."
     if [[ -f "$DATA_PATH"/fromZigbee.js ]]; then
-        cp -f "$DATA_PATH"/fromZigbee.js ./node_modules/zigbee-shepherd-converters/fromZigbee.js
+        cp -f "$DATA_PATH"/fromZigbee.js ./node_modules/zigbee-shepherd-converters/converters/fromZigbee.js
     else
         echo "[Error] File $DATA_PATH/fromZigbee.js not found! Starting with default fromZigbee.js"
     fi
